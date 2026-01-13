@@ -1,0 +1,6 @@
+name: PoaDraw
+version: '1'
+main: poa.poaDraw.PoaDraw
+api-version: '1.21'
+commands:
+    draw:
