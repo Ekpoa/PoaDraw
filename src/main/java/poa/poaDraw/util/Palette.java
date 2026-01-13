@@ -193,7 +193,7 @@ public final class Palette {
                     t.getRightRotation()
             ));
         });
-        displays.add(currentColor);
+        displays.add(currentSize);
 
         final TextDisplay minus = world.spawn(origin, TextDisplay.class, d -> {
             d.text(Component.text("-"));

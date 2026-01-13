@@ -1,25 +1,18 @@
 package poa.poaDraw.commands;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.TextDisplay;
-import org.checkerframework.common.value.qual.EnsuresMinLenIf;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import poa.poaDraw.PoaDraw;
-import poa.poaDraw.util.Cube;
 import poa.poaDraw.util.Palette;
-import poa.poaDraw.util.PlayerData;
 
 import java.util.*;
 
-public class Draw implements CommandExecutor, TabCompleter {
+public class DrawCMD implements CommandExecutor, TabCompleter {
 
     public static final Map<Player, Palette> viewingPalette = new HashMap<>();
     public static final List<Player> drawing = new ArrayList<>();

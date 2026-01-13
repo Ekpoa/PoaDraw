@@ -1,9 +1,7 @@
 package poa.poaDraw.events;
 
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
-import org.bukkit.Bukkit;
 import org.bukkit.Color;
-import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Interaction;
 import org.bukkit.entity.Player;
@@ -13,13 +11,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import poa.poaDraw.PoaDraw;
-import poa.poaDraw.commands.Draw;
+import poa.poaDraw.commands.DrawCMD;
 import poa.poaDraw.util.Cube;
 import poa.poaDraw.util.Palette;
 import poa.poaDraw.util.PlayerData;
-
-import java.util.*;
 
 public class Click implements Listener {
 
@@ -30,10 +25,10 @@ public class Click implements Listener {
         if(!(clicked instanceof Interaction interaction))
             return;
 
-        if(!Draw.viewingPalette.containsKey(player))
+        if(!DrawCMD.viewingPalette.containsKey(player))
             return;
 
-        final Palette palette = Draw.viewingPalette.get(player);
+        final Palette palette = DrawCMD.viewingPalette.get(player);
 
         final TextDisplay display = palette.getDisplay(interaction);
         if(display == null)
