@@ -87,16 +87,13 @@ public final class Globe {
 
                 Matrix4f m = new Matrix4f(sphere).mul(p.transform);
 
-                // set transform
                 applyMatrixToTextDisplay(td, m);
 
-                // set color
                 td.setBackgroundColor(sample(texture, p.u, p.v));
             }
         }, 1L, 1L);
     }
 
-    // ---------- Pixel generation (same logic as the Kotlin) ----------
 
     private static List<Pixel> generatePixels(int ySteps) {
         List<Pixel> out = new ArrayList<>();
@@ -116,18 +113,12 @@ public final class Globe {
                 float yRot = (float) (Math.PI * 2 * r);
                 float xRot = (float) (Math.PI * y);
 
-                // This matches the Kotlin build:
-                // rotateYXZ(yRot, xRot, 0)
-                // rotateX(PI/2)
-                // translate(FORWARD)
-                // scale(particleSize)
                 Matrix4f matrix = new Matrix4f()
                         .rotateYXZ(yRot, xRot, 0f)
                         .rotateX((float) (Math.PI / 2.0))
-                        .translate(0f, 0f, 1f)      // FORWARD_VECTOR
+                        .translate(0f, 0f, 1f)
                         .scale(particleSize);
 
-                // This is their "unit square" multiply. You can tune it to your quad size.
                 Matrix4f unitSquare = textDisplayUnitSquare();
 
                 Matrix4f pixelTransform = new Matrix4f(matrix)
@@ -147,10 +138,8 @@ public final class Globe {
                 .scale(8.0f, 4.0f, 1f);
     }
 
-    // ---------- Texture sampling ----------
 
     private static org.bukkit.Color sample(BufferedImage img, float u, float v) {
-        // wrap u, clamp v
         u = u - (float) Math.floor(u);
         v = Math.max(0f, Math.min(1f, v));
 
@@ -163,25 +152,17 @@ public final class Globe {
         int g = (argb >>> 8) & 0xFF;
         int b = (argb) & 0xFF;
 
-        // If you want alpha=0 pixels to not render, you’d skip spawning/updating that display.
         return org.bukkit.Color.fromARGB(a, r, g, b);
     }
 
-    // ---------- Matrix -> TextDisplay transformation ----------
-    // You already know this area from your cube work.
-    // For a first pass: extract translation + rotation (quaternion) + scale from the matrix and apply to Transformation.
 
     private static void applyMatrixToTextDisplay(TextDisplay td, Matrix4f m) {
-        // Minimal: translation from matrix, scale left as-is.
-        // Better: decompose into TRS.
         Vector3f translation = new Vector3f();
         m.getTranslation(translation);
 
-        // naive scale (approx)
         Vector3f scale = new Vector3f();
         m.getScale(scale);
 
-        // rotation quaternion
         Quaternionf rot = new Quaternionf();
         m.getUnnormalizedRotation(rot).normalize();
 
@@ -194,7 +175,6 @@ public final class Globe {
         ));
     }
 
-    // ---------- data classes ----------
     private record Pixel(int keyA, int keyB, float u, float v, Matrix4f transform) {}
 
     private record Key(int a, int b, int inner) {}
