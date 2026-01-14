@@ -4,3 +4,4 @@ main: poa.poaDraw.PoaDraw
 api-version: '1.21'
 commands:
     draw:
+    globe:
